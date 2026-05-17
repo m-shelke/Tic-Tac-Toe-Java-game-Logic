@@ -1,7 +1,7 @@
 import java.util.Random;
 import java.util.Scanner;
 
-public class Test {
+public class AITicTacToe {
 
     public static void main(String[] args) {
 
@@ -13,82 +13,87 @@ public class Test {
             }
         }
 
-        char player;
-        boolean gameOver = false;
-        Scanner scanner = new Scanner(System.in);
-        Random random = new Random();
-        boolean ranTurn = random.nextBoolean();
 
-        if (ranTurn){
-            player = 'x';
+        Random random = new Random();
+        boolean randomTurn = random.nextBoolean();
+        char player;
+        if (randomTurn){
+             player = 'x';
         }else {
-            player = 'o';
+             player = 'o';
         }
 
-        while (!gameOver){
+        boolean gameOver = false;
+        Scanner scanner = new Scanner(System.in);
+
+
+        while (!gameOver) {
 
             System.out.println("BOARD: ");
             printBoard(board);
 
-            if (player == 'o'){ // let's suppose 'o' is AI
-
-                int row;
-                int col;
+            if (player == 'o'){  // let's say 'o' is AI
+                int row, col;
 
                 do {
                     row = random.nextInt(3);
                     col = random.nextInt(3);
-                }while (board[row][col] != ' ');
+                }while (board[row][col] !=  ' ');
 
                 board[row][col] = player;
-                System.out.println("AI played at " + row + ", " + col);
+                System.out.println("AI played at : " + row + ", " + col);
                 printBoard(board);
                 gameOver = hashWon(board,player);
 
                 if (gameOver){
-                    System.out.println("Player " + player + " Hash Won");
-                    break;
+                    System.out.println("Player " + player + " Has Won");
                 }else {
                     player = 'x';
                 }
+
             }
 
             System.out.print("Player " + player + " enter: ");
             int row = scanner.nextInt();
             int col = scanner.nextInt();
 
-            if (row >= 0 && row <= 2 && col >= 0 && col <= 2){
+            if (row >= 0 && row <= 2 && col >= 0 && col <= 2) {
 
-                if (board[row][col] == ' '){
-                    board[row][col] = player; // place element
-                    gameOver = hashWon(board,player);
+                if (board[row][col] == ' ') {
+                    board[row][col] = player;
+                    gameOver = hashWon(board, player);
 
-                    if (gameOver){
-                        System.out.println("Player " + player + " Hash Won");
-                    }else {
-                        if (player == 'x'){
+                    if (gameOver) {
+                        System.out.println("Player " + player + " Has Won ");
+                    } else {
+                        if (player == 'x') {
                             player = 'o';
-                        }else {
+                        } else {
                             player = 'x';
                         }
                     }
-                }else {
+
+                } else {
                     System.out.println("Invalid Move. Try Again!");
                 }
             }else {
                 System.out.println("Invalid Position. Try Again!");
             }
         }
+
+
+        printBoard(board);
+
     }
 
     private static boolean hashWon(char[][] board, char player) {
 
         for (int row = 0; row < board.length; row++) {
-            if (board[row][0] == player && board[row][1] == player && board[row][2] == player){
+            if (board[row][0] == player && board[row][1] == player && board[row][2] == player) {
                 return true;
             }
 
-            for (int col = 0; col < board[row].length; col++) {
+            for (int col = 0; col < board[row].length; col++){
                 if (board[0][col] == player && board[1][col] == player && board[2][col] == player){
                     return true;
                 }
@@ -106,8 +111,7 @@ public class Test {
         return false;
     }
 
-
-    private static void printBoard(char[][] board){
+    private static void printBoard(char[][] board) {
 
         for (int row = 0; row < board.length; row++) {
             for (int col = 0; col < board[row].length; col++) {

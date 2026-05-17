@@ -1,3 +1,4 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class Main {
@@ -10,8 +11,18 @@ public class Main {
                 board[row][col] = ' ';
             }
         }
-        
-        char player = 'x';
+
+        Random random = new Random();
+        boolean b = random.nextBoolean();
+        char player;
+        if (b){
+            System.out.println("True");
+            player = 'x';
+        }else {
+            System.out.println("False");
+            player = 'o';
+        }
+
         boolean gameOver = false;
         Scanner scanner = new Scanner(System.in);
         
